@@ -1,5 +1,5 @@
 {
-  "name": "dynamic-component-nuxt",
+  "name": "dynamic-components-nuxt",
   "dependencies": {
     "nuxt": "latest"
   },
