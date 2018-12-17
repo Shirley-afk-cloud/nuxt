@@ -20,9 +20,9 @@ describe('typescript', () => {
     expect(html).toContain('<div>About Page</div>')
   })
 
-  test('/contact', async () => {
-    const { html } = await nuxt.server.renderRoute('/contact')
-    expect(html).toContain('<div>Contact Page</div>')
+  test('/interface', async () => {
+    const { html } = await nuxt.server.renderRoute('/interface')
+    expect(html).toContain('<div>Interface Page</div>')
   })
 
   // Close server and ask nuxt to stop listening to file changes
