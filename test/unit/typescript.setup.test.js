@@ -7,17 +7,15 @@ jest.mock('ts-node')
 
 describe('typescript setup', () => {
   const rootDir = 'tmp'
+  const tsConfigPath = resolve(rootDir, 'tsconfig.json')
 
-  beforeAll(() => {
-    setupTypeScript(rootDir)
+  beforeAll(async () => {
+    // We're assuming that rootDir provided to setupTypeScript is existing so we create the tested one
+    await mkdirp(rootDir)
+    await setupTypeScript(tsConfigPath)
   })
 
   test('tsconfig.json has been generated if missing', async () => {
-    // We're assuming that rootDir provided to setupTypeScript is existing so we create the tested one
-    await mkdirp(rootDir)
-
-    const tsConfigPath = resolve(rootDir, 'tsconfig.json')
-
     expect(await exists(tsConfigPath)).toBe(true)
     expect(await readJSON(tsConfigPath)).toEqual({
       extends: '@nuxt/typescript',
@@ -29,12 +27,20 @@ describe('typescript setup', () => {
         ]
       }
     })
-
-    // Clean workspace by removing the temporary folder (and the generated tsconfig.json at the same time)
-    await remove(rootDir)
   })
 
-  test('ts-node has been registered', () => {
-    expect(register).toHaveBeenCalled()
+  test('ts-node has been registered once', async () => {
+    // Call setupTypeScript a second time to test guard
+    await setupTypeScript(tsConfigPath)
+
+    expect(register).toHaveBeenCalledTimes(1)
+    expect(register).toHaveBeenCalledWith({
+      project: tsConfigPath
+    })
+  })
+
+  afterAll(async () => {
+    // Clean workspace by removing the temporary folder (and the generated tsconfig.json at the same time)
+    await remove(tsConfigPath)
   })
 })
