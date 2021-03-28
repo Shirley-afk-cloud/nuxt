@@ -4,6 +4,7 @@
   "repository": "nuxt/framework",
   "license": "MIT",
   "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
@@ -26,7 +27,7 @@
   },
   "build": {
     "entries": {
-      "index": {}
+      "index": { "format": "cjs" }
     }
   }
 }

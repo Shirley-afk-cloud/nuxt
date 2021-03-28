@@ -1,0 +1,31 @@
+{
+  "name": "@nuxt/app",
+  "version": "0.0.0",
+  "repository": "nuxt/framework",
+  "license": "MIT",
+  "main": "./dist/index.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "mkdist",
+    "stub": "rm -rf dist && ln -s src dist #",
+    "prepublishOnly": "yarn build"
+  },
+  "dependencies": {
+    "create-require": "^1.1.1",
+    "defu": "^3.2.2",
+    "dotenv": "^8.2.0",
+    "jiti": "^1.6.4",
+    "rc9": "^1.2.0",
+    "scule": "^0.1.1",
+    "std-env": "^2.3.0",
+    "ufo": "^0.6.10",
+    "untyped": "^0.2.2"
+  },
+  "build": {
+    "entries": {
+      "index": {}
+    }
+  }
+}
